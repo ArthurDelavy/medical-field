@@ -1,10 +1,14 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import { Login } from "./pages/Login"
+
 export function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-900 text-white">
-      <h1 className="text-3xl font-bold text-emerald-400">
-        MedicalField
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
