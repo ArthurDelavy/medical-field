@@ -1,4 +1,4 @@
-package com.medicalfield.core.auth.exceptions.custom;
+package com.medicalfield.core.exceptions.custom;
 
 public class DuplicatedValueException extends RuntimeException{
     public DuplicatedValueException(String message) {

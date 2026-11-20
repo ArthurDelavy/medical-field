@@ -1,4 +1,4 @@
-package com.medicalfield.core.auth.exceptions;
+package com.medicalfield.core.exceptions;
 
 import java.time.OffsetDateTime;
 import java.util.Map;

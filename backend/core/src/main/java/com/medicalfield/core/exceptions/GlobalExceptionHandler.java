@@ -1,4 +1,4 @@
-package com.medicalfield.core.auth.exceptions;
+package com.medicalfield.core.exceptions;
 
 import java.time.OffsetDateTime;
 import java.util.HashMap;
@@ -13,7 +13,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.medicalfield.core.auth.exceptions.custom.DuplicatedValueException;
+import com.medicalfield.core.exceptions.custom.DuplicatedValueException;
+import com.medicalfield.core.exceptions.custom.ElementNotFoundException;
 
 @RestControllerAdvice 
 public class GlobalExceptionHandler {
@@ -69,5 +70,17 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+
+    @ExceptionHandler(ElementNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleElementNotFound(ElementNotFoundException e) {
+        ErrorResponse error = new ErrorResponse(
+            HttpStatus.NOT_FOUND.value(),
+            e.getMessage(),
+            OffsetDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.medicalfield.core.auth.dto.RegisterRequest;
-import com.medicalfield.core.auth.exceptions.custom.DuplicatedValueException;
+import com.medicalfield.core.exceptions.custom.DuplicatedValueException;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

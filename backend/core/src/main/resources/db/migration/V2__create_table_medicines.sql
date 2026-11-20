@@ -1,0 +1,7 @@
+CREATE TABLE medicines(
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    manufacturer VARCHAR(100) NOT NULL,
+    batch_number VARCHAR(100) NOT NULL,
+    expires_at TIMESTAMPTZ NOT NULL
+);
