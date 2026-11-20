@@ -16,6 +16,11 @@ export default {
           hover: '#0891b2',     // Cyan para o passar do mouse
         }
       },
+
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
     },
   },
   plugins: [],
