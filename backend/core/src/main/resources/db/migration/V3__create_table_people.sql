@@ -1,0 +1,8 @@
+CREATE TYPE gender AS ENUM('M', 'F');
+
+CREATE TABLE people (
+    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    gender gender NOT NULL,
+    document VARCHAR(100)
+);

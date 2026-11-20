@@ -14,20 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.medicalfield.core.medicine.dto.MedicineResponse;
 import com.medicalfield.core.medicine.dto.NewMedicineRequest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController 
 @RequiredArgsConstructor 
-@RequestMapping("/medicine")
-@Tag(name = "Medicine", description = "Cadastro e consulta de medicamentos")
+@RequestMapping("/medicamento")
+@Tag(name = "Medicamento", description = "Cadastro e consulta de medicamentos")
 public class MedicineController {
     
     private final MedicineService mdcSvc;
 
 
     @GetMapping
+    @Operation(summary = "Lista todos os medicamentos")
+        @SecurityRequirement(name = "BearerToken")
+        @ApiResponse(responseCode = "200", description = "Listado com sucesso!")
+        @ApiResponse(responseCode = "401", description = "Token ausente ou inválido", content = @Content)
     public ResponseEntity<List<MedicineResponse>> getAll() {
         List<MedicineResponse> responseData = mdcSvc.listAll()
                                                 .stream()
@@ -39,6 +47,11 @@ public class MedicineController {
     
 
     @GetMapping("/{medicineId}")
+    @Operation(summary = "Lista todos os dados de um medicamento específico")
+        @SecurityRequirement(name = "BearerToken")
+        @ApiResponse(responseCode = "200", description = "Listado com sucesso!")
+        @ApiResponse(responseCode = "401", description = "Token ausente ou inválido", content = @Content)
+        @ApiResponse(responseCode = "404", description = "Medicamento não encontrado", content = @Content)
     public ResponseEntity<MedicineResponse> getById(@PathVariable int medicineId) {
         MedicineResponse responseData = new MedicineResponse(mdcSvc.getById(medicineId));
         return ResponseEntity.status(HttpStatus.OK).body(responseData);
@@ -46,8 +59,14 @@ public class MedicineController {
 
     
     @PostMapping
+    @Operation(summary = "Inserir novo medicamento")
+        @SecurityRequirement(name = "BearerToken")
+        @ApiResponse(responseCode = "201", description = "Criado com sucesso!")
+        @ApiResponse(responseCode = "400", description = "Um ou mais campos estão com valores inválidos", content = @Content)
+        @ApiResponse(responseCode = "401", description = "Token ausente ou inválido", content = @Content)
+        @ApiResponse(responseCode = "409", description = "Medicamento já cadastrado", content = @Content)
     public ResponseEntity<MedicineResponse> newMedicine(@RequestBody @Valid NewMedicineRequest data) {
         MedicineResponse responseData = new MedicineResponse(mdcSvc.newMedicine(data));
-        return ResponseEntity.status(HttpStatus.OK).body(responseData);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseData);
     }
 }
