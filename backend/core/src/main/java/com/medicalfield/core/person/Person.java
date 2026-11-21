@@ -1,5 +1,7 @@
 package com.medicalfield.core.person;
 
+import java.util.UUID;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -36,4 +38,8 @@ public class Person {
     private Gender gender;
 
     private String document;
+
+    private String emergencyContactEmail;
+
+    private UUID syncId;
 }

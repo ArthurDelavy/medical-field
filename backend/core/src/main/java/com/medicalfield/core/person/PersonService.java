@@ -35,13 +35,20 @@ public class PersonService {
     @Transactional
     public Person newPerson(@Valid NewPersonRequest data) {
         
+        Person savedPerson = psnRep.findBySyncId(data.syncId()).orElse(null);
+        if (savedPerson != null) return savedPerson;
+
+
+
         if (data.document() != null)
             if (psnRep.existsByDocument(data.document())) throw new DuplicatedValueException("Pessoa já cadastrada.");
 
         Person person = Person.builder()
             .name(data.name())
             .gender(data.gender())
-            .document(data.document())
+            .document(data.document().trim())
+            .emergencyContactEmail(data.emergencyContactEmail())
+            .syncId(data.syncId())
             .build();
 
         return psnRep.save(person);
