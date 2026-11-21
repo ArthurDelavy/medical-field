@@ -10,7 +10,9 @@ public record PersonResponse(
 
     String gender,
 
-    String document
+    String document,
+
+    String emergencyContactEmail
 
 ) {
 
@@ -19,7 +21,8 @@ public record PersonResponse(
             data.getId(),
             data.getName(),
             data.getGender().toString(),
-            data.getDocument()
+            data.getDocument(),
+            data.getEmergencyContactEmail()
         );
     }
 }
